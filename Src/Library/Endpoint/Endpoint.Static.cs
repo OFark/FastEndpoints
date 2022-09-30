@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace FastEndpoints;
 
-public abstract partial class Endpoint<TRequest, TResponse> : BaseEndpoint where TRequest : notnull, new() where TResponse : notnull
+public abstract partial class Endpoint<TRequest, TResponse> : BaseEndpoint where TRequest : notnull, new()
 {
     private static async Task RunPostProcessors(HashSet<object> postProcessors, TRequest req, TResponse resp, HttpContext ctx, List<ValidationFailure> validationFailures, CancellationToken cancellation)
     {
@@ -38,7 +38,7 @@ public abstract partial class Endpoint<TRequest, TResponse> : BaseEndpoint where
         }
     }
 
-    private static Task AutoSendResponse(HttpContext ctx, TResponse? responseDto, JsonSerializerContext? jsonSerializerContext, CancellationToken cancellation)
+    private static Task AutoSendResponse(HttpContext ctx, TResponse responseDto, JsonSerializerContext? jsonSerializerContext, CancellationToken cancellation)
     {
         return responseDto is null
                ? ctx.Response.SendNoContentAsync(cancellation)

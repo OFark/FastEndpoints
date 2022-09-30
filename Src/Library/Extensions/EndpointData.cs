@@ -143,6 +143,7 @@ internal sealed class EndpointData
                 if (tInterface == Types.IMapper)
                 {
                     services.AddSingleton(t);
+                    continue;
                 }
 
                 if (tInterface == Types.IEventHandler)
@@ -244,7 +245,7 @@ internal sealed class EndpointData
 
             if (summaryDict.TryGetValue(def.EndpointType, out var tSummary))
             {
-                def.Summary((EndpointSummary?)Activator.CreateInstance(tSummary));
+                def.Summary((EndpointSummary)Activator.CreateInstance(tSummary)!);
             }
 
             return def;
